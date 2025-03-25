@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import logo from '../logo.png';
+import API_BASE_URL from '../api/config';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Navbar = () => {
 
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:3000/api/connect-wallet',
+        '${API_BASE_URL}/api/connect-wallet',
         { wallet_address: address },
         { headers: { Authorization: `Bearer ${token}` } }
       );

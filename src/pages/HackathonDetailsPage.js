@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import SubmissionTable from '../components/SubmissionTable.js'; // Import the SubmissionTable component
+import API_BASE_URL from '../api/config';
 
 const HackathonDetailsPage = () => {
   const { id } = useParams();
@@ -25,13 +26,13 @@ const HackathonDetailsPage = () => {
       }
 
       const [hackathonResponse, participantsResponse, submissionsResponse] = await Promise.all([
-        axios.get(`http://localhost:3000/api/hackathons/${id}`, {
+        axios.get(`${API_BASE_URL}/api/hackathons/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get(`http://localhost:3000/api/hackathons/${id}/participants`, {
+        axios.get(`${API_BASE_URL}/api/hackathons/${id}/participants`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get(`http://localhost:3000/api/hackathons/${id}/submissions`, {
+        axios.get(`${API_BASE_URL}/api/hackathons/${id}/submissions`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -61,7 +62,7 @@ const HackathonDetailsPage = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:3000/api/hackathons/${id}/join`,
+        `${API_BASE_URL}/api/hackathons/${id}/join`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,7 +81,7 @@ const HackathonDetailsPage = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:3000/api/hackathons/${id}/withdraw`,
+        `${API_BASE_URL}/api/hackathons/${id}/withdraw`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -106,14 +107,14 @@ const HackathonDetailsPage = () => {
       let response;
       try {
         response = await axios.post(
-          `http://localhost:3000/api/hackathons/${id}/end-only`,
+          `${API_BASE_URL}/api/hackathons/${id}/end-only`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } catch (err) {
         console.log('First endpoint failed, trying alternative');
         response = await axios.post(
-          `http://localhost:3000/api/hackathons/${id}/end`,
+          `${API_BASE_URL}/api/hackathons/${id}/fund`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         );

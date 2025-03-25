@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import API_BASE_URL from '../api/config'; // Adjust path based on your structure
 const CreateHackathonPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -52,7 +52,7 @@ const CreateHackathonPage = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:3000/api/hackathons',
+        `${API_BASE_URL}/api/hackathons`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

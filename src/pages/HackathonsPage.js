@@ -3,6 +3,7 @@ import HackathonCard from '../components/HackathonCard';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import API_BASE_URL from '../api/config';
 
 const HackathonsPage = () => {
   const [hackathons, setHackathons] = useState([]);
@@ -14,7 +15,7 @@ const HackathonsPage = () => {
     const fetchHackathons = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:3000/api/hackathons');
+        const response = await axios.get('${API_BASE_URL}/api/hackathons');
         // Sort hackathons - active ones first
         const sortedHackathons = response.data.sort((a, b) => {
           // If a is active and b is not, a comes first

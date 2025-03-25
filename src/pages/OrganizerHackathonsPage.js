@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import HackathonCard from '../components/HackathonCard';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../api/config';
 
 const OrganizerHackathonsPage = () => {
   const [hackathons, setHackathons] = useState([]);
@@ -20,7 +21,7 @@ const OrganizerHackathonsPage = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:3000/api/organizer/hackathons', {
+        const response = await axios.get('${API_BASE_URL}/api/organizer/hackathons', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setHackathons(response.data);

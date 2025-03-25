@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User } from 'lucide-react';
+import API_BASE_URL from '../api/config';
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const SignupPage = () => {
     if (!validateForm()) return;
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/api/signup', formData, { timeout: 5000 });
+      const response = await axios.post('${API_BASE_URL}/api/signup', formData, { timeout: 5000 });
       toast.success(response.data.message);
       navigate('/login');
     } catch (err) {

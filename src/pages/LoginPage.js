@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../api/config'; // Adjust path based on your structure
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const LoginPage = () => {
         email: formData.email.trim(),
         password: formData.password.trim(),
       };
-      const response = await axios.post('http://localhost:3000/api/login', cleanFormData);
+      const response = await axios.post(`${API_BASE_URL}/api/login`, cleanFormData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       toast.success('Logged in successfully!');

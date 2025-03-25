@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../api/config';
 
 const SubmitProjectPage = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const SubmitProjectPage = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:3000/api/hackathons/${id}`, {
+        const response = await axios.get(`${API_BASE_URL}/api/hackathons/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setHackathon(response.data);
@@ -69,7 +70,7 @@ const SubmitProjectPage = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:3000/api/hackathons/${id}/submit`,
+        `${API_BASE_URL}/api/hackathons/${id}/submit`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

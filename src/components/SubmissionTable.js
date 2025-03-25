@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../api/config';
 
 const SubmissionTable = ({ submissions, hackathon, onSetWinners }) => {
   const initializeWinners = useCallback(() => {
@@ -46,7 +47,7 @@ const SubmissionTable = ({ submissions, hackathon, onSetWinners }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `http://localhost:3000/api/hackathons/${hackathon.id}/end`,
+        `${API_BASE_URL}/api/hackathons/${hackathon.id}/end`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -72,7 +73,7 @@ const SubmissionTable = ({ submissions, hackathon, onSetWinners }) => {
       }
 
       const response = await axios.post(
-        `http://localhost:3000/api/hackathons/${hackathon.id}/fund`,
+        `${API_BASE_URL}/api/hackathons/${hackathon.id}/fund`,
         { amount },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -96,14 +97,14 @@ const SubmissionTable = ({ submissions, hackathon, onSetWinners }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `http://localhost:3000/api/hackathons/${hackathon.id}/set-winners`,
+        `${API_BASE_URL}/api/hackathons/${hackathon.id}/set-winners`,
         { winners: selectedWinners },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success(`Winners set! Transaction Hash: ${response.data.transactionHash}`);
 
       const updatedHackathonResponse = await axios.get(
-        `http://localhost:3000/api/hackathons/${hackathon.id}`,
+        `${API_BASE_URL}/api/hackathons/${hackathon.id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const updatedHackathon = updatedHackathonResponse.data;
@@ -129,7 +130,7 @@ const SubmissionTable = ({ submissions, hackathon, onSetWinners }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `http://localhost:3000/api/hackathons/${hackathon.id}/distribute`,
+        `${API_BASE_URL}/api/hackathons/${hackathon.id}/distribute`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -143,7 +144,7 @@ const SubmissionTable = ({ submissions, hackathon, onSetWinners }) => {
       );
 
       const updatedHackathonResponse = await axios.get(
-        `http://localhost:3000/api/hackathons/${hackathon.id}`,
+        `${API_BASE_URL}/api/hackathons/${hackathon.id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       onSetWinners({ hackathon: updatedHackathonResponse.data });

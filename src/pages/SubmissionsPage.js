@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SubmissionTable from '../components/SubmissionTable';
 import { toast } from 'react-toastify';
-
+import API_BASE_URL from '../api/config';
 const SubmissionsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const SubmissionsPage = () => {
         return;
       }
 
-      const hackathonResponse = await axios.get(`http://localhost:3000/api/hackathons/${id}`, {
+      const hackathonResponse = await axios.get(`${API_BASE_URL}/api/hackathons/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log('Fetched hackathon data:', hackathonResponse.data);
@@ -39,7 +39,7 @@ const SubmissionsPage = () => {
         setStep(0);
       }
 
-      const submissionsResponse = await axios.get(`http://localhost:3000/api/hackathons/${id}/submissions`, {
+      const submissionsResponse = await axios.get(`${API_BASE_URL}/api/hackathons/${id}/submissions`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSubmissions(submissionsResponse.data);
@@ -76,7 +76,7 @@ const SubmissionsPage = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `http://localhost:3000/api/hackathons/${id}/distribute`,
+        `${API_BASE_URL}/api/hackathons/${id}/distribute`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

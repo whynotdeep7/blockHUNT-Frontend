@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import API_BASE_URL from '../api/config';
 const OrganizerDashboardPage = () => {
   const [stats, setStats] = useState({
     hackathons: 0,
@@ -30,7 +30,7 @@ const OrganizerDashboardPage = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:3000/api/organizer/stats', {
+        const response = await axios.get('${API_BASE_URL}/api/organizer/stats', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setStats(response.data);
